@@ -11,7 +11,7 @@ from tapita import Cover
 @click.option("-o", "--output", metavar="<filename>", help="Output file (- for stdout)")
 def cover(title, author, output, subtitle):
     cover = Cover(title, subtitle, author)
-    cover.cover_image.save(output)
+    cover.image.save(output)
 
 
 if __name__ == "__main__":

@@ -33,18 +33,18 @@ class Cover:
         self.cover_width = 1200
         self.cover_height = 1800
 
-        self.cover_margin = 2
-        self.cover_image = Image.new("RGB", (self.cover_width, self.cover_height))
-        self.image_draw = ImageDraw.Draw(self.cover_image)
+        self.cover_margin = 2  # This is a percentage in practice
+        self.image = Image.new("RGB", (self.cover_width, self.cover_height))
+        self.draw = ImageDraw.Draw(self.image)
 
-        self._processColors()
+        self._pickColors()
         self._drawBackground()
         self._drawArtwork()
         self._drawText()
 
     def _drawBackground(self):
         # Fill the background of the image with white.
-        self.image_draw.rectangle(
+        self.draw.rectangle(
             (0, 0, self.cover_width, self.cover_height), fill=self.background
         )
 
@@ -64,7 +64,7 @@ class Cover:
                 (self.cover_width, self.cover_width)
             )
 
-        self.cover_image.paste(art, (artwork_start_x, artwork_start_y))
+        self.image.paste(art, (artwork_start_x, artwork_start_y))
 
     # Allocate fonts for the title and the author, and draw the text.
     def _drawText(self):
@@ -83,37 +83,37 @@ class Cover:
         y = self.cover_height * self.cover_margin / 100 * 2
 
         wrapped = textwrap.wrap(self.title, 18)
-        self.image_draw.text(
+        self.draw.text(
             (x, y), "\n".join(wrapped), font=title_font, fill=self.foreground
         )
 
-        bbox = self.image_draw.textbbox((x, y), "\n".join(wrapped), font=title_font)
+        bbox = self.draw.textbbox((x, y), "\n".join(wrapped), font=title_font)
         title_height = bbox[3] - bbox[1]
         y = y + title_height + 0.03 * self.cover_height
 
         if self.subtitle:
-            self.image_draw.text(
+            self.draw.text(
                 (x, y),
                 "\n".join(textwrap.wrap(self.subtitle)),
                 font=subtitle_font,
                 fill=self.foreground,
             )
 
-            bbox = self.image_draw.textbbox((x, y), "\n".join(wrapped), font=title_font)
+            bbox = self.draw.textbbox((x, y), "\n".join(wrapped), font=title_font)
             subtitle_height = bbox[3] - bbox[1]
             y = y + subtitle_height + 0.03 * self.cover_height
 
         if self.author:
-            bbox = self.image_draw.textbbox((x, y), self.author, font=author_font)
+            bbox = self.draw.textbbox((x, y), self.author, font=author_font)
             author_height = bbox[3] - bbox[1]
-            self.image_draw.text(
+            self.draw.text(
                 (x, self.cover_height * 0.97 - self.cover_width - author_height),
                 self.author,
                 font=author_font,
                 fill=self.foreground,
             )
 
-    def _processColors(self):
+    def _pickColors(self):
         base_saturation = 100
         base_brightness = 90
         color_distance = 100
