@@ -5,6 +5,12 @@ description = "A tool/library to automatically create book covers"
 authors = ["Roberto Alsina <roberto.alsina@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/ralsina/tapita"
+repository = "https://github.com/ralsina/tapita"
+keywords = ["ebook", "cover"]
+packages = [
+  { include = "tapita" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
