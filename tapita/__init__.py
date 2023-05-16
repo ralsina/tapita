@@ -3,6 +3,7 @@ import urllib
 import urllib.parse
 import urllib.request
 from io import BytesIO
+from pathlib import Path
 
 from PIL import Image, ImageColor, ImageDraw, ImageFont
 
@@ -47,6 +48,9 @@ class Cover:
             (0, 0, self.cover_width, self.cover_height), fill=self.background
         )
 
+    def _getFont(self, size):
+        return ImageFont.truetype(str(Path(__file__).parent / "HackNerdFont-Regular.ttf"), int(size))
+    
     def _drawArtwork(self):
         artwork_start_x = 0
         artwork_start_y = self.cover_height - self.cover_width
@@ -62,15 +66,9 @@ class Cover:
 
     # Allocate fonts for the title and the author, and draw the text.
     def _drawText(self):
-        title_font_size = int(self.cover_width * 0.08)
-        subtitle_font_size = int(self.cover_width * 0.05)
-        author_font_size = int(self.cover_width * 0.06)
-
-        title_font = ImageFont.truetype("HackNerdFont-Regular.ttf", title_font_size)
-        subtitle_font = ImageFont.truetype(
-            "HackNerdFont-Regular.ttf", subtitle_font_size
-        )
-        author_font = ImageFont.truetype("HackNerdFont-Regular.ttf", author_font_size)
+        title_font = self._getFont(self.cover_width * 0.08)
+        subtitle_font = self._getFont(self.cover_width * 0.05)
+        author_font = self._getFont(self.cover_width * 0.06)
 
         # Just a fancy way to say "near the top"
         title_height = (
