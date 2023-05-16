@@ -12,6 +12,21 @@ This is based off code from [Tenprintcover](https://github.com/mgiraldo/tenprint
 although I don't think anything survives of the original code, which has been ported
 to Pillow and de-c64-fied.
 
+Usage:
+
+```sh
+$ python -m tapita --help
+Usage: python -m tapita [OPTIONS]
+
+Options:
+  -t, --title <title>        Book title
+  -s, --subtitle <subtitle>  Book subtitle
+  -a, --author <author>      Book author
+  -o, --output <filename>    Output file (- for stdout)
+  --help                     Show this message and exit.
+
+```
+
 Example usage:
 
 ```sh

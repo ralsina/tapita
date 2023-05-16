@@ -25,7 +25,7 @@ def _clip(value, lower, upper):
 
 
 class Cover:
-    def __init__(self, title, subtitle, author):
+    def __init__(self, title, subtitle="", author=""):
         self.title = title
         self.subtitle = subtitle
         self.author = author
@@ -49,8 +49,10 @@ class Cover:
         )
 
     def _getFont(self, size):
-        return ImageFont.truetype(str(Path(__file__).parent / "HackNerdFont-Regular.ttf"), int(size))
-    
+        return ImageFont.truetype(
+            str(Path(__file__).parent / "HackNerdFont-Regular.ttf"), int(size)
+        )
+
     def _drawArtwork(self):
         artwork_start_x = 0
         artwork_start_y = self.cover_height - self.cover_width
@@ -101,14 +103,15 @@ class Cover:
             subtitle_height = bbox[3] - bbox[1]
             y = y + subtitle_height + 0.03 * self.cover_height
 
-        bbox = self.image_draw.textbbox((x, y), self.author, font=author_font)
-        author_height = bbox[3] - bbox[1]
-        self.image_draw.text(
-            (x, self.cover_height * 0.97 - self.cover_width - author_height),
-            self.author,
-            font=author_font,
-            fill=self.foreground,
-        )
+        if self.author:
+            bbox = self.image_draw.textbbox((x, y), self.author, font=author_font)
+            author_height = bbox[3] - bbox[1]
+            self.image_draw.text(
+                (x, self.cover_height * 0.97 - self.cover_width - author_height),
+                self.author,
+                font=author_font,
+                fill=self.foreground,
+            )
 
     def _processColors(self):
         base_saturation = 100
