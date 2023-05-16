@@ -4,7 +4,6 @@ import urllib.parse
 import urllib.request
 from io import BytesIO
 
-import click
 from PIL import Image, ImageColor, ImageDraw, ImageFont
 
 
@@ -129,19 +128,3 @@ class Cover:
 
         self.background = ImageColor.getrgb("#fff")
         self.foreground = ImageColor.getrgb("rgb(50, 50, 50)")
-
-
-@click.command()
-@click.option("-t", "--title", metavar="<title>", help="Book title")
-@click.option(
-    "-s", "--subtitle", metavar="<subtitle>", help="Book subtitle", default=None
-)
-@click.option("-a", "--author", metavar="<author>", help="Book author", default=None)
-@click.option("-o", "--output", metavar="<filename>", help="Output file (- for stdout)")
-def cover(title, author, output, subtitle):
-    cover = Cover(title, subtitle, author)
-    cover.cover_image.save(output)
-
-
-if __name__ == "__main__":
-    cover()
