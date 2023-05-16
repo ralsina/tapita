@@ -4,7 +4,7 @@ This is of very limited usefulness for the average person, but
 if you have ever needed to generate book covers for a few 
 thousand files out of book metadata, then this may be for you!
 
-The image it generates has some colorful "art" thanks to dicebear.com
+The image it generates has some colorful "art" thanks to [Dicebear](https://dicebear.com)
 which, again, will not change unless you change the title or subtitle
 of the book.
 
